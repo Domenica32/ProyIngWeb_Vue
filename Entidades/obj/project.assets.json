@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\Entidades.csproj",
+      "projectUniqueName": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\Entidades.csproj",
       "projectName": "Entidades",
-      "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\Entidades.csproj",
+      "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\Entidades.csproj",
       "packagesPath": "C:\\Users\\domer\\.nuget\\packages\\",
-      "outputPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\obj\\",
+      "outputPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

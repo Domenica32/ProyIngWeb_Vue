@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E+K429ge2OGJUZWN6lcCEXgjB03vWlOHicY/3ErDiGFcxkzrAM2ARgwGASwW/dWozx5B4aLUaWiztXq/zoI15Q==",
+  "dgSpecHash": "Zg+2EcVE9pq6ER8JOTunagRS6yZ0qu3R6s+qiAMgDAZH/mcTlflv6lm5dy4ISfupqaFcpRSi5jEdCPs/Qjzd8g==",
   "success": true,
-  "projectFilePath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\Entidades.csproj",
+  "projectFilePath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\Entidades.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

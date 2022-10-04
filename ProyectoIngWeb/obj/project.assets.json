@@ -8517,11 +8517,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
+      "projectUniqueName": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
       "projectName": "ProyectoIngWeb",
-      "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
+      "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
       "packagesPath": "C:\\Users\\domer\\.nuget\\packages\\",
-      "outputPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\ProyectoIngWeb\\obj\\",
+      "outputPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\ProyectoIngWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -8544,11 +8544,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Datos\\Datos.csproj": {
-              "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Datos\\Datos.csproj"
+            "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Datos\\Datos.csproj": {
+              "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Datos\\Datos.csproj"
             },
-            "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\Entidades.csproj": {
-              "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\Entidades\\Entidades.csproj"
+            "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\Entidades.csproj": {
+              "projectPath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\Entidades\\Entidades.csproj"
             }
           }
         }

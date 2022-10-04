@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3QSm+GI6gwoMwXEz+WUvvg7UAcCn5ozvJ8YLW4J6kYxlIkD5aqhLyV7OYWy0mpXm0RfiGJ1TIbwo3K+hk9mQew==",
+  "dgSpecHash": "dv7SPOQwyOd5I0efoFG8Ee22O58GVCREZRi0CGJ8kY4M3+lr9+xZoGmsTqNVE2Mo7lQK6utvgJW+QFQ6LQYbbA==",
   "success": true,
-  "projectFilePath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\Solution1\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
+  "projectFilePath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
