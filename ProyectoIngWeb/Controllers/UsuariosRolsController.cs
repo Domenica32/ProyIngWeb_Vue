@@ -81,11 +81,12 @@ namespace ProyectoIngWeb.Controllers
             {
                 return NotFound();
             }
-
+            usuarios.idRolUsuarios_FK = model.idRolUsuarios_FK;
             usuarios.NombreUsuario = model.NombreUsuario;
             usuarios.ApellidoUsuario = model.ApellidoUsuario;
             usuarios.EmailUsuario = model.EmailUsuario;
-
+            usuarios.PasswordUsuario_hash = model.PasswordUsuario_hash;
+            
             
             try
             {
