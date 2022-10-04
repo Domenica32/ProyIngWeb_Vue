@@ -1,0 +1,80 @@
+<template>
+  <v-app id="inspire">
+    <v-navigation-drawer
+      color="#808080"
+      dark
+      v-model="drawer"
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :to ="item.to"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn block>
+            Logout
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <v-app-bar
+      app
+      color="teal lighten-3"
+      dark
+      
+      scroll-target="#scrolling-techniques-4"
+    >
+      <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title> Sistema Ingenieria Web</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
+</template>
+
+<script>
+  export default {
+    data: () => ({ 
+      drawer: null,
+      items: [
+          { title: 'Inicio', icon: 'mdi-ray-start-vertex-end', to:'/' },
+          { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
+          
+        ], 
+    
+    
+    }),
+  }
+</script>
