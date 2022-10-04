@@ -40,6 +40,10 @@
                 <v-flex  xs12 sm12 md12>
                   <v-text-field v-model="PasswordUsuario_hash" label="Password"></v-text-field>
                 </v-flex>
+                <v-flex  xs12 sm12 md12 v-show="valida">
+                  <div class="red--text" v-for="v in validaMensaje" :key="v" v-text="v">
+                  </div>
+                </v-flex>
               </v-row>
             </v-container>
           </v-card-text>
@@ -126,12 +130,14 @@ export default {
         PasswordUsuario_hash:""
         
       },
-        
+        idUsuarios:0,
         idRolUsuarios_FK:0,
         NombreUsuario: "",
         ApellidoUsuario:"",
         EmailUsuario: "",
-        PasswordUsuario_hash:""
+        PasswordUsuario_hash:"",
+        valida:0,
+        validaMensaje:[],
     };
   },
   computed: {
@@ -168,14 +174,16 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      console.log(this.editedItem);
-      this.idRolUsuarios_FK = this.editedItem.idRolUsuarios_FK;
-      this.NombreUsuario = this.editedItem.NombreUsuario;
-      this.ApellidoUsuario = this.editedItem.ApellidoUsuario;
-      this.EmailUsuario = this.editedItem.EmailUsuario;
-      this.PasswordUsuario_hash = this.editedItem.PasswordUsuario_hash;
+      //this.editedIndex = this.desserts.indexOf(item);
+      //this.editedItem = Object.assign({}, item);
+      //console.log(this.editedItem);
+      this.idUsuarios = item.idUsuarios;
+      this.idRolUsuarios_FK = item.idRolUsuarios_FK;
+      this.NombreUsuario = item.nombreUsuario;
+      this.ApellidoUsuario = item.apellidoUsuario;
+      this.EmailUsuario = item.emailUsuario;
+      this.PasswordUsuario_hash = item.passwordUsuario_hash;
+      this.editedIndex=1;
       this.dialog = true;
     },
 
@@ -210,8 +218,32 @@ export default {
 
     },
     save() {
+      
+     // if (this.validar()){
+      //  return; 
+     // }
+
       if (this.editedIndex > -1) {
         //Codigo para editar
+        let me=this;
+        console.log(this);
+        axios.put('/api/UsuariosRols/Actualizar',{
+          'idUsuarios':parseInt(me.idUsuarios),
+          'idRolUsuarios_FK':parseInt(me.idRolUsuarios_FK),
+          'NombreUsuario': me.NombreUsuario,
+          'ApellidoUsuario': me.ApellidoUsuario,
+          'EmailUsuario': me.EmailUsuario,
+          'PasswordUsuario_hash':me.PasswordUsuario_hash,
+          'PasswordUsuario_desencrip':me.PasswordUsuario_hash
+
+        }).then(function(response){
+          me.close();
+          me.Listar();
+          me.limpiar();
+          
+        }).catch(function (error){
+          console.log(error);
+        });
       } else {
         //codigo para guardar 
         let me=this;
@@ -231,9 +263,21 @@ export default {
           
         }).catch(function (error){
           console.log(error);
-        })
+        });
       }
-      this.close();
+    },
+    validar(){ //evaluamos que los campos cumplan con lo requerido 
+      this.valida+0;
+      this.validaMensaje=[];
+
+      if(this.NombreUsuario.length<5|| this.NombreUsuario>30){
+        this.validaMensaje.push("El nombre debe tener mas de 5 caracteres y menos de 30");
+      }
+      if(this.validaMensaje.length){
+        this.valida=1;
+      }
+      return this.valida;
+
     },
   },
 };

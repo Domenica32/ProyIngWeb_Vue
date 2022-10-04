@@ -12,7 +12,7 @@ namespace ProyectoIngWeb.Models.Usuarios
         [Required]
         public int idRolUsuarios_FK { get; set; }
         [Required]
-        [StringLength(30, MinimumLength = 5, ErrorMessage = "El nombre no debe tener más de 30 caracteres y minimo debe tener 5 caracteres")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "El nombre no debe tener más de 30 caracteres y minimo debe tener 3 caracteres")]
        
         public string NombreUsuario { get; set; }
         public string ApellidoUsuario { get; set; }
