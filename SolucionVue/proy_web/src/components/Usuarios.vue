@@ -26,7 +26,8 @@
               <v-row>
                 <!--Para llenar los campos del dialogo editar -->
                 <v-flex  xs12 sm12 md12>
-                  <v-text-field v-model="idRolUsuarios_FK" label="Rol Usuario"></v-text-field>
+                 <v-text-field v-model="idRolUsuarios_FK" label="Rol Usuario"></v-text-field>
+                 <!--<v-select v-model="idRolUsuarios_FK" :items="roles" label="Rol Usuario"></v-select>-->
                 </v-flex>
                 <v-flex  xs12 sm12 md12>
                   <v-text-field v-model="NombreUsuario" label="Nombre Uusuario"></v-text-field>
@@ -38,7 +39,7 @@
                   <v-text-field v-model="EmailUsuario" label="Email Usuario"></v-text-field>
                 </v-flex>
                 <v-flex  xs12 sm12 md12>
-                  <v-text-field v-model="PasswordUsuario_hash" label="Password"></v-text-field>
+                  <v-text-field type="password" v-model="PasswordUsuario" label="Password"></v-text-field>
                 </v-flex>
                 <v-flex  xs12 sm12 md12 v-show="valida">
                   <div class="red--text" v-for="v in validaMensaje" :key="v" v-text="v">
@@ -117,26 +118,21 @@ export default {
         { text: "Nombre", value: "nombreUsuario" },
         { text: "Apellido", value: "apellidoUsuario" },
         { text: "Email", value: "emailUsuario" },
-        { text: "Password", value: "passwordUsuario_hash"},
+        //{ text: "Password", value: "passwordUsuario_hash"},
+        { text: "Estado", value: "condicion"},
         { text: "Opciones", value: "actions", sortable: false },
       ],
       search: '',
-      //desserts: [],
       editedIndex: -1,
-      //editedItem: {
-        //idRolUsuarios_FK:0,
-        //NombreUsuario: "",
-       // ApellidoUsuario:"",
-       // EmailUsuario: "",
-       // PasswordUsuario_hash:""
-        
-      //},
         idUsuarios:0,
         idRolUsuarios_FK:0,
         NombreUsuario: "",
         ApellidoUsuario:"",
         EmailUsuario: "",
-        PasswordUsuario_hash:"",
+        PasswordUsuario:"",
+        actPassword:false,
+        passwordAnt:"",
+        roles:[],
         valida:0,
         validaMensaje:[],
     };
@@ -157,6 +153,7 @@ export default {
   created() {
     this.initialize();
     this.Listar();
+    
   },
   methods: {
     Listar() {
@@ -171,8 +168,21 @@ export default {
         });
     },
     initialize() {
-    this.desserts = [];
+    this.usuarios = [];
     },
+    //select(){
+    //let me=this;
+    //var rolesArray=[];
+    //axios.get('api/Roles/Select'),then(function(response){
+     //  rolesArray=response.data;
+     //  rolesArray.map(function(x){
+     //   me.roles.push({value:x.idRolUsuarios});
+     //   console.log(rolesArray);
+     //   });
+     // }).catch(function(error){
+     // console.log(error);
+     // });
+ // },
 
     editItem(item) {
       //this.editedIndex = this.desserts.indexOf(item);
@@ -183,13 +193,14 @@ export default {
       this.NombreUsuario = item.nombreUsuario;
       this.ApellidoUsuario = item.apellidoUsuario;
       this.EmailUsuario = item.emailUsuario;
-      this.PasswordUsuario_hash = item.passwordUsuario_hash;
+      this.PasswordUsuario = item.passwordUsuario_hash;
+      this.passwordAnt=item.passwordUsuario_hash;
       this.editedIndex=1;
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.usuarios.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.idUsuarios = item.idUsuarios;
       this.dialogDelete = true;
@@ -228,12 +239,14 @@ export default {
       this.NombreUsuario="";
       this.ApellidoUsuario="";
       this.EmailUsuario="";
-      this.PasswordUsuario_hash="";
+      this.PasswordUsuario="";
+      this.passwordAnt="";
+      this.actPassword=false;
       this.editedIndex =-1;
     },
     save() {
       
-     // if (this.validar()){
+    // if (this.validar()){
       //  return; 
      // }
 
@@ -241,14 +254,17 @@ export default {
         //Codigo para editar
         let me=this;
         console.log(this);
+        if(me.PasswordUsuario!=me.passwordAnt){
+          me.actPassword=true;
+        }
         axios.put('/api/UsuariosRols/Actualizar',{
           'idUsuarios':parseInt(me.idUsuarios),
           'idRolUsuarios_FK':parseInt(me.idRolUsuarios_FK),
           'NombreUsuario': me.NombreUsuario,
           'ApellidoUsuario': me.ApellidoUsuario,
           'EmailUsuario': me.EmailUsuario,
-          'PasswordUsuario_hash':me.PasswordUsuario_hash,
-          'PasswordUsuario_desencrip':me.PasswordUsuario_hash
+          'PasswordUsuario':me.PasswordUsuario,
+          'act_password':me.actPassword
 
         }).then(function(response){
           me.close();
@@ -267,8 +283,7 @@ export default {
           'NombreUsuario': me.NombreUsuario,
           'ApellidoUsuario': me.ApellidoUsuario,
           'EmailUsuario': me.EmailUsuario,
-          'PasswordUsuario_hash':me.PasswordUsuario_hash,
-          'PasswordUsuario_desencrip':me.PasswordUsuario_hash
+          'PasswordUsuario':me.PasswordUsuario,
 
         }).then(function(response){
           me.close();
@@ -281,7 +296,7 @@ export default {
       }
     },
     validar(){ //evaluamos que los campos cumplan con lo requerido 
-      this.valida+0;
+      this.valida=0;
       this.validaMensaje=[];
 
       if(this.NombreUsuario.length<5|| this.NombreUsuario>30){

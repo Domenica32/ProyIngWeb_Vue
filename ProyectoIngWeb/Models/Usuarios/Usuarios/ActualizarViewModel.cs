@@ -8,6 +8,7 @@ namespace ProyectoIngWeb.Models.Usuarios
 {
     public class ActualizarViewModel
     {
+        [Required]
         public int idUsuarios  { get; set; }
         [Required]
         public int idRolUsuarios_FK { get; set; }
@@ -18,7 +19,7 @@ namespace ProyectoIngWeb.Models.Usuarios
         public string ApellidoUsuario { get; set; }
 
         public string EmailUsuario { get; set; }
-        public string PasswordUsuario_hash { get; set; }
-        public string PasswordUsuario_desencrip { get; set; }
+        public string PasswordUsuario { get; set; }
+        public bool act_password { get; set; }
     }
 }

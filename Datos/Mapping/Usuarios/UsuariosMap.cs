@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Entidades.Usuarios;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-
-using Entidades.Usuarios;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Datos.Mapping.Usuarios
 {
-    public class UsuariosMap : IEntityTypeConfiguration<UsuariosRol>
+    public class UsuariosMap : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(EntityTypeBuilder<UsuariosRol> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.ToTable("Usuarios")
-                .HasKey(c => c.idUsuarios);//mapear la entidad Usuarios con la tabla Usuarios
+            
+                builder.ToTable("Usuarios")
+                    .HasKey(c => c.idUsuarios);//mapear la entidad Usuarios con la tabla Usuarios
+            
         }
     }
 }

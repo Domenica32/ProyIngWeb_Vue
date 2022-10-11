@@ -5,16 +5,15 @@ using System.Threading.Tasks;
 
 namespace ProyectoIngWeb.Models.Usuarios
 {
-    public class UsuariosRolViewModel
+    public class UsuariosViewModel
     {
         public int idUsuarios { get; set; }
         public int idRolUsuarios_FK { get; set; }
+        //public string rol { get; set; }
         public string NombreUsuario { get; set; }
         public string ApellidoUsuario { get; set; }
         public string EmailUsuario { get; set; }
-
-        public string PasswordUsuario_hash { get; set; }
-        public string PasswordUsuario_desencrip { get; set; }
-
+        public byte[] PasswordUsuario_hash { get; set; }
+        public bool condicion { get; set; }
     }
 }

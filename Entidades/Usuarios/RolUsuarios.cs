@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entidades.Usuarios
 {
-   public  class Roles
+   public  class RolUsuarios
     {
     public int idRolUsuarios { get; set; }
     [Required]
@@ -11,5 +12,7 @@ namespace Entidades.Usuarios
     [StringLength(256)]
     public string descripcion { get; set; }
     public  bool condicion { get; set; }
+
+    //public ICollection<Usuario> Usuarios { get;  set; }
     }
 }
