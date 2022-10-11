@@ -9,6 +9,11 @@ using Datos;
 using Entidades.Usuarios;
 using ProyectoIngWeb.Models.Usuarios;
 using ProyectoIngWeb.Models.Usuarios.Usuarios;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ProyectoIngWeb.Controllers
 {
@@ -18,9 +23,12 @@ namespace ProyectoIngWeb.Controllers
     {
         private readonly DbContextProy _context;
 
-        public UsuariosRolsController(DbContextProy context)
+        private readonly IConfiguration _config;
+
+        public UsuariosRolsController(DbContextProy context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         //GET: api/UsuariosRols/Listar
@@ -265,19 +273,63 @@ namespace ProyectoIngWeb.Controllers
             return Ok();
         }
 
-        //[HttpPost("[action]")]
-        //public async Task<IActionResult> Login(LoginViewModel model)
-        //{
-        //    var email = model.email.ToLower();
-        //    var usuario = await _context.UsuariosRol.FirstOrDefaultAsync(u => u.EmailUsuario == email);
-        //    if(usuario==null)
-        //    {
-        //        return NotFound();
-        //    }
-        //}
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            var email = model.EmailUsuario.ToLower();
+            var usuario = await _context.Usuarios.Where(u => u.condicion==true).FirstOrDefaultAsync(u => u.EmailUsuario == email);
+            if(usuario==null)
+            {
+                return NotFound();
+            }
+            if (!VerificarPaswordHash(model.PasswordUsuario,usuario.PasswordUsuario_hash, usuario.PasswordUsuario_salt))//verificar si el usuario existe
+            {
+                return NotFound();
+            }
 
+            var claims = new List<Claim>
+            {
+                //Claims contiene informacion acerca del usuario
+                //Son lo que es el usuario y no lo que el usuario puede hacer
+                //para ASP.NET
+                new Claim (ClaimTypes.NameIdentifier, usuario.idUsuarios.ToString()),
+                new Claim (ClaimTypes.Email,email),
+                new Claim (ClaimTypes.Role,usuario.idRolUsuarios_FK.ToString()),
+                //para VUE
+                new Claim ("idUsuarios",usuario.idUsuarios.ToString()),
+                new Claim ("NombreUsuario",usuario.NombreUsuario)
 
+            };
+            return Ok(new { token = GenerarToken(claims) }
+            );
+        }
 
+        private bool VerificarPaswordHash (string password, byte[] passwordHashAlmacenado, byte [] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))// envio el password salt con el que se encriptado el password almacenado
+            {
+                var passwordHashNuevo = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));//Vuelvo a encriptar el password
+                return new ReadOnlySpan<byte>(passwordHashAlmacenado).SequenceEqual(new ReadOnlySpan<byte>(passwordHashNuevo)); // comparo si el passwordalmacenado es igual al password nuevo
+            }
+        }
+
+        private string GenerarToken(List<Claim> claims)
+        {
+            //JWT(JSON WEB TOKENS)
+            //Es un estandar abierto para la creacion de tokens de acceso que 
+            //permite la propagacion de identidad y privilegios
+            //Para indicar al usuario que privilegios va a tener
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Issuer"],
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds,
+                claims: claims);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
         private bool UsuariosRolExists(int id)
         {
             return _context.Usuarios.Any(e => e.idUsuarios == id);

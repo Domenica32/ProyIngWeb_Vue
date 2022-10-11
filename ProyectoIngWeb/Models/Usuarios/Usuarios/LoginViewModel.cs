@@ -10,8 +10,8 @@ namespace ProyectoIngWeb.Models.Usuarios.Usuarios
     {
         [Required]
         [EmailAddress]
-        public string email { get; set; }
+        public string EmailUsuario { get; set; }
         [Required]
-        public string password { get; set; }
+        public string PasswordUsuario { get; set; }
     }
 }
