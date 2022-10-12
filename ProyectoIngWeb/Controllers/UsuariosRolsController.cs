@@ -297,7 +297,9 @@ namespace ProyectoIngWeb.Controllers
                 new Claim (ClaimTypes.Role,usuario.idRolUsuarios_FK.ToString()),
                 //para VUE
                 new Claim ("idUsuarios",usuario.idUsuarios.ToString()),
-                new Claim ("NombreUsuario",usuario.NombreUsuario)
+                new Claim ("NombreUsuario",usuario.NombreUsuario),
+                new Claim ("idRol",usuario.idRolUsuarios_FK.ToString())
+
 
             };
             return Ok(new { token = GenerarToken(claims) }

@@ -1,12 +1,15 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+
       color="#808080"
       dark
       v-model="drawer"
+      v-if="logueado"
       app
     >
-      <v-list>
+    
+    <v-list dense>
         <v-list-item
           v-for="item in items"
           :key="item.title"
@@ -25,7 +28,7 @@
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
+          <v-btn @click="salir" block>
             Logout
           </v-btn>
         </div>
@@ -69,7 +72,8 @@
     data: () => ({ 
       drawer: null,
       items: [
-          { title: 'Inicio', icon: 'mdi-ray-start-vertex-end', to:'/' },
+        
+          {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
           { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
           { title: 'Roles', icon: 'mdi-account-plus', to:'/roles'},
 
@@ -77,5 +81,24 @@
     
     
     }),
+    computed:{
+      logueado(){
+        return this.$store.state.usuario;
+      },
+      esAdministrador(){
+        return this.$store.state.usuario && this.$store.state.usuario.idRol == 1 ;
+      },
+      esUsuarioNormal(){
+        return this.$store.state.usuario && this.$store.state.usuario.idRol == 2  ;
+
+      }
+    },created(){
+      this.$store.dispatch("autoLogin");//llamamos a la accion autoLogin del store
+    },
+    methods:{
+        salir(){
+          this.$store.dispatch("salir");
+        }
+    }
   }
 </script>
