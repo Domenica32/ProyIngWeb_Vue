@@ -1,6 +1,16 @@
 # ProyIngWeb_Vue
 Nombre: Doménica Rueda
 # Login 
+
+
+![image](https://user-images.githubusercontent.com/62667937/195994935-52cac8e7-8c6b-4ba1-82fc-7379b367ef93.png)
+
+![image](https://user-images.githubusercontent.com/62667937/195994957-63361793-1a92-4be0-aef8-06089e153e1d.png)
+
+![image](https://user-images.githubusercontent.com/62667937/195994983-ebcf9d6a-cce5-4288-9b35-f082d155fb27.png)
+
+
+
 1. Para la creación del login primero se creo un nuevo modelo desde nuestro backend 
 
 
