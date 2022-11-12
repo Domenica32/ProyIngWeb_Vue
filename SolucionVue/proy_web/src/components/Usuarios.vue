@@ -158,7 +158,9 @@ export default {
   methods: {
     Listar() {
       let me = this;
-      axios.get("/api/UsuariosRols/Listar")
+      let header={"Authorization" : "Bearer " + this.$store.state.token};
+      let configuracion= {headers : header};
+      axios.get("/api/UsuariosRols/Listar",configuracion)
         .then(function (response) {
           //console.log(response);
           me.usuarios = response.data;

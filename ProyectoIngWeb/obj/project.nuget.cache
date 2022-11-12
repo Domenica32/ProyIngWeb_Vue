@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dv7SPOQwyOd5I0efoFG8Ee22O58GVCREZRi0CGJ8kY4M3+lr9+xZoGmsTqNVE2Mo7lQK6utvgJW+QFQ6LQYbbA==",
+  "dgSpecHash": "QRPzkfleB1FGCJI3gPBSGzEND3lvvQf8BoRRn/UaO61ju76ub78goarWoAnegabqj7kPOwTe/wZwGj0RMpH3dw==",
   "success": true,
   "projectFilePath": "C:\\IngenieriaWeb\\ProyectoIngWeb\\ProyectoVue_AspNet\\ProyectoIngWeb\\ProyectoIngWeb.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.0\\microsoft.aspnetcore.authentication.jwtbearer.3.1.0.nupkg.sha512",
     "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\domer\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",

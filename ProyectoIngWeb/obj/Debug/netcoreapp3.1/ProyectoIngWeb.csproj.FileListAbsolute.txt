@@ -274,3 +274,4 @@ C:\IngenieriaWeb\ProyectoIngWeb\ProyectoVue_AspNet\ProyectoIngWeb\obj\Debug\netc
 C:\IngenieriaWeb\ProyectoIngWeb\ProyectoVue_AspNet\ProyectoIngWeb\obj\Debug\netcoreapp3.1\ProyectoIngWeb.dll
 C:\IngenieriaWeb\ProyectoIngWeb\ProyectoVue_AspNet\ProyectoIngWeb\obj\Debug\netcoreapp3.1\ProyectoIngWeb.pdb
 C:\IngenieriaWeb\ProyectoIngWeb\ProyectoVue_AspNet\ProyectoIngWeb\obj\Debug\netcoreapp3.1\ProyectoIngWeb.genruntimeconfig.cache
+C:\IngenieriaWeb\ProyectoIngWeb\ProyectoVue_AspNet\ProyectoIngWeb\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll

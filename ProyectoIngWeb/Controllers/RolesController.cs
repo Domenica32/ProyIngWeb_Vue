@@ -8,13 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using Datos;
 using Entidades.Usuarios;
 using ProyectoIngWeb.Models.Usuarios.Rol;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+   // [Authorize(Roles = "1" )]
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase
     {
+        
+
         private readonly DbContextProy _context;
 
         public RolesController(DbContextProy context)

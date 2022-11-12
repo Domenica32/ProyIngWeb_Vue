@@ -9,9 +9,11 @@
       app
     >
     
-    <v-list dense>
+   
+      <template v-if="esAdministrador ">
+        <v-list dense>
         <v-list-item
-          v-for="item in items"
+          v-for="item in itemsAdmin"
           :key="item.title"
           :to ="item.to"
           link
@@ -25,6 +27,26 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      </template>
+      <template v-if="esUsuarioNormal ">
+        <v-list dense>
+        <v-list-item
+          v-for="item in itemsNormal"
+          :key="item.title"
+          :to ="item.to"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      </template>
+      
 
       <template v-slot:append>
         <div class="pa-2">
@@ -71,14 +93,17 @@
   export default {
     data: () => ({ 
       drawer: null,
-      items: [
+      itemsAdmin: [
         
           {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
           { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
           { title: 'Roles', icon: 'mdi-account-plus', to:'/roles'},
 
         ], 
-    
+      itemsNormal:[
+      {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
+
+      ],
     
     }),
     computed:{
@@ -86,6 +111,7 @@
         return this.$store.state.usuario;
       },
       esAdministrador(){
+        console.log('rol:',this.$store.state.usuario)
         return this.$store.state.usuario && this.$store.state.usuario.idRol == 1 ;
       },
       esUsuarioNormal(){

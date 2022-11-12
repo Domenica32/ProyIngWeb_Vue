@@ -69,7 +69,9 @@ export default {
   methods: {
     Listar() {
       let me = this;
-      axios.get("api/Roles/Listar")
+      let header={"Authorization" : "Bearer " + this.$store.state.token};
+      let configuracion= {headers : header};
+      axios.get("api/Roles/Listar", configuracion)
         .then(function (response) {
           //console.log(response);
           me.roles = response.data;

@@ -1,4 +1,5 @@
 using Datos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,9 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectoIngWeb
@@ -37,6 +40,21 @@ namespace ProyectoIngWeb
                 options.AddPolicy("Todos",
                  builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));// que el servicio se pueda consumir a tarvez de cualquier origen, header y metodo
 
+            }); //Agregar un nuevo servicio que nos ayuda a validar ese token que nos va a enviar el frontend 
+            //Enviar el token con la autorizacion desede el front end para 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
             });
         }
 
@@ -59,10 +77,11 @@ namespace ProyectoIngWeb
             {
                 endpoints.MapControllers();
                 app.UseCors("Todos");
-
+                app.UseAuthentication();
             });
 
             app.UseCors("Todos");
+            //app.UseAuthentication();
 
         }
     }

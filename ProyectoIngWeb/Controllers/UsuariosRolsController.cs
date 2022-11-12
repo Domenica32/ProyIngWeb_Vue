@@ -14,9 +14,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+    //[Authorize(Roles = "Administrador,Usuarios")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosRolsController : ControllerBase
@@ -129,8 +131,7 @@ namespace ProyectoIngWeb.Controllers
         [HttpPost("[action]")]
         public async Task<ActionResult> Crear([FromBody] CrearViewModel model)
         {
-
-
+            
 
             if (!ModelState.IsValid)
             {
