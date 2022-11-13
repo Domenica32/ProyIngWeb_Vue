@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Datos.Mapping.Medicamentos;
 using Datos.Mapping.Usuarios;
+using Entidades.Medicamento;
 using Entidades.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +13,8 @@ namespace Datos
     {
         public DbSet <Usuario> Usuarios { get; set; }//Exponer la coleccion de usuarios en ese objeto
         public DbSet<RolUsuarios> Roles { get; set; }//Exponer la coleccion de usuarios en ese objeto
+
+        public DbSet<Medicamento> Medicamento { get; set; }
 
         //CONSTRUCTOR 
         public DbContextProy(DbContextOptions<DbContextProy> options) : base(options)
@@ -23,6 +27,7 @@ namespace Datos
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new UsuariosMap());//Aplicar la configuracion de UsuariosMap
             modelBuilder.ApplyConfiguration(new RolMap());//Aplicar la configuracion de RolMap
+            modelBuilder.ApplyConfiguration(new MedicamentoMap());
 
         }
     }
