@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import Usuarios from '../components/Usuarios.vue'
 import Rol from '../components/Rol.vue'
 import LoginUsuarios from '../components/LoginUsuarios.vue'
+import Medicamentos from '../components/Medicamentos.vue'
 import store from '../store/store'
 
 Vue.use(VueRouter)
@@ -29,6 +30,14 @@ var router = new VueRouter(
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+        },
+        {
+          path: '/Medicamentos',
+          name: 'Medicamentos',
+          component: Medicamentos,
+          meta: { //prpiedad meta
+            administrador:true,//tipo de usuario que tiene acceso a ese path
+          }
         },
         {
           path: '/Usuarios',

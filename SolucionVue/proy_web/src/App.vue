@@ -98,6 +98,8 @@
           {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
           { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
           { title: 'Roles', icon: 'mdi-account-plus', to:'/roles'},
+          { title: 'Medicamentos', icon: 'mdi-account-plus', to:'/Medicamentos'},
+
 
         ], 
       itemsNormal:[
