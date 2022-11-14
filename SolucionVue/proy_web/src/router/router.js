@@ -5,6 +5,10 @@ import Usuarios from '../components/Usuarios.vue'
 import Rol from '../components/Rol.vue'
 import LoginUsuarios from '../components/LoginUsuarios.vue'
 import Medicamentos from '../components/Medicamentos.vue'
+import Sintomas from '../components/Sintomas.vue'
+import MedicamentoSintoma from '../components/MedicamentoSintoma.vue'
+
+
 import store from '../store/store'
 
 Vue.use(VueRouter)
@@ -35,6 +39,22 @@ var router = new VueRouter(
           path: '/Medicamentos',
           name: 'Medicamentos',
           component: Medicamentos,
+          meta: { //prpiedad meta
+            administrador:true,//tipo de usuario que tiene acceso a ese path
+          }
+        },
+        {
+          path: '/Sintomas',
+          name: 'Sintomas',
+          component: Sintomas,
+          meta: { //prpiedad meta
+            administrador:true,//tipo de usuario que tiene acceso a ese path
+          }
+        },
+        {
+          path: '/MedicamentoSintoma',
+          name: 'MedicamentoSintoma',
+          component: MedicamentoSintoma,
           meta: { //prpiedad meta
             administrador:true,//tipo de usuario que tiene acceso a ese path
           }

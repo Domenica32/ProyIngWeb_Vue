@@ -15,6 +15,11 @@ namespace Datos
         public DbSet<RolUsuarios> Roles { get; set; }//Exponer la coleccion de usuarios en ese objeto
 
         public DbSet<Medicamento> Medicamento { get; set; }
+        public DbSet<Sintoma> Sintoma { get; set; }
+
+        public DbSet<RelacionMedicamentoSintoma> MedicamentoSintoma { get; set; }
+
+
 
         //CONSTRUCTOR 
         public DbContextProy(DbContextOptions<DbContextProy> options) : base(options)
@@ -28,6 +33,10 @@ namespace Datos
             modelBuilder.ApplyConfiguration(new UsuariosMap());//Aplicar la configuracion de UsuariosMap
             modelBuilder.ApplyConfiguration(new RolMap());//Aplicar la configuracion de RolMap
             modelBuilder.ApplyConfiguration(new MedicamentoMap());
+            modelBuilder.ApplyConfiguration(new SintomaMap());
+            modelBuilder.ApplyConfiguration(new MedicamentoSintomaMap());
+
+
 
         }
     }

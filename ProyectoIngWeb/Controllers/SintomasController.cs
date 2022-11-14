@@ -7,115 +7,108 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Datos;
 using Entidades.Medicamento;
-using ProyectoIngWeb.Models.Medicamentos;
+using ProyectoIngWeb.Models.Sintomas;
 
 namespace ProyectoIngWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MedicamentosController : ControllerBase
+    public class SintomasController : ControllerBase
     {
         private readonly DbContextProy _context;
 
-        public MedicamentosController(DbContextProy context)
+        public SintomasController(DbContextProy context)
         {
             _context = context;
         }
 
-        // GET: api/Medicamentos/Listar
+        // GET: api/Sintomas/Listar
         [HttpGet("[action]")]
-        public async Task<IEnumerable<MedicamentosViewModel>> Listar()
+        public async Task<IEnumerable<SintomasViewModel>> Listar()
         {
-            var medicamentos = await _context.Medicamento.ToListAsync();
+            var sintomas = await _context.Sintoma.ToListAsync();
 
-            return medicamentos.Select(m => new MedicamentosViewModel
+            return sintomas.Select(s => new SintomasViewModel
             {
-                idMedicamento = m.idMedicamento,
-                nombre = m.nombre,
-                compuestoQuimico = m.compuestoQuimico,
-                dosis = m.dosis,
-                estado = m.estado
+                idSintoma = s.idSintoma,
+                LugarSintoma = s.LugarSintoma,
+                TipoMalestar = s.TipoMalestar,
+                estado = s.estado
             });
         }
 
-
-
-
-        // GET: api/Medicamentos/Mostrar/5
+        // GET: api/Sintomas/Mostrar/5
         [HttpGet("[action]/{id}")]
-        public async Task<ActionResult> Mostrar([FromRoute]int id)
+        public async Task<ActionResult> Mostrar([FromRoute] int id)
         {
-            var medicamento = await _context.Medicamento.FindAsync(id);
+            var sintoma = await _context.Sintoma.FindAsync(id);
 
-            if (medicamento == null)
+            if (sintoma == null)
             {
                 return NotFound();
             }
 
-            return Ok(new MedicamentosViewModel {
-                idMedicamento = medicamento.idMedicamento,
-                nombre = medicamento.nombre,
-                compuestoQuimico = medicamento.compuestoQuimico,
-                dosis = medicamento.dosis,
-                estado = medicamento.estado
-
-
+            return Ok(new SintomasViewModel
+            {
+                idSintoma = sintoma.idSintoma,
+                LugarSintoma = sintoma.LugarSintoma,
+                TipoMalestar = sintoma.TipoMalestar,
+                estado = sintoma.estado
             });
         }
 
-        // PUT: api/Medicamentos/Actualizar
+        // PUT: api/Sintomas/Actualizar
         [HttpPut("[action]")]
-        public async Task<IActionResult> Actualizar( [FromBody] ActualizarViewModel model)
+        public async Task<IActionResult> Actualizar([FromBody] ActualizarViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (model.idMedicamento <= 0)
+            if (model.idSintoma <= 0)
             {
                 return BadRequest();
             }
 
-            var medicamento = await _context.Medicamento.FirstOrDefaultAsync(c => c.idMedicamento == model.idMedicamento);
+            var sintoma = await _context.Sintoma.FirstOrDefaultAsync(s => s.idSintoma == model.idSintoma);
 
-            if (medicamento == null)
+            if (sintoma == null)
             {
                 return NotFound();
             }
 
-            medicamento.nombre = model.nombre;
-            medicamento.compuestoQuimico = model.nombre;
-            medicamento.dosis = model.dosis;
-            medicamento.estado = model.estado;
+            sintoma.LugarSintoma = model.LugarSintoma;
+            sintoma.TipoMalestar = model.TipoMalestar;
             try
             {
                 await _context.SaveChangesAsync();
-            }catch (DbUpdateConcurrencyException)
+            }
+            catch (DbUpdateConcurrencyException)
             {
                 return BadRequest();
             }
             return Ok();
         }
 
-        // POST: api/Medicamentos/Crear
-        [HttpPost ("[action]") ]
-        public async Task<ActionResult> Crear ([FromBody] CrearViewModel model)
+
+        // POST: api/Sintomas/Crear
+        [HttpPost("[action]")]
+        public async Task<ActionResult> Crear([FromBody] CrearViewModel model)
         {
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-           
-            Medicamento med = new Medicamento
+
+            Sintoma sin = new Sintoma
             {
-                nombre = model.nombre,
-                compuestoQuimico = model.compuestoQuimico,
-                dosis = model.dosis,
+                LugarSintoma = model.LugarSintoma,
+                TipoMalestar = model.TipoMalestar,
                 estado = true
 
             };
-            _context.Medicamento.Add(med);
+            _context.Sintoma.Add(sin);
             try
             {
 
@@ -130,21 +123,21 @@ namespace ProyectoIngWeb.Controllers
             return Ok();
         }
 
-        // DELETE: api/Medicamentos/5
+        // DELETE: api/Sintomas/5
         [HttpDelete("[action]/{id}")]
-        public async Task<ActionResult> Eliminar([FromRoute]int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var medicamento = await _context.Medicamento.FindAsync(id);
-            if (medicamento == null)
+            var sintoma = await _context.Sintoma.FindAsync(id);
+            if (sintoma == null)
             {
                 return NotFound();
             }
 
-            _context.Medicamento.Remove(medicamento);
+            _context.Sintoma.Remove(sintoma);
             try
             {
                 await _context.SaveChangesAsync();
@@ -156,12 +149,10 @@ namespace ProyectoIngWeb.Controllers
 
 
 
-            return Ok(medicamento);
+            return Ok(sintoma);
         }
 
-
-
-        //PUT: api/Medicamentos/Desactivar/5
+        //PUT: api/Sintomas/Desactivar/5
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Desactivar([FromRoute] int id)
         {
@@ -169,13 +160,13 @@ namespace ProyectoIngWeb.Controllers
             {
                 return BadRequest();
             }
-            var medicamento = await _context.Medicamento.FirstOrDefaultAsync(m => m.idMedicamento == id);
+            var sintoma = await _context.Sintoma.FirstOrDefaultAsync(s => s.idSintoma == id);
 
-            if (medicamento == null)
+            if (sintoma == null)
             {
                 return NotFound();
             }
-            medicamento.estado = false;
+            sintoma.estado = false;
 
 
             try
@@ -200,13 +191,13 @@ namespace ProyectoIngWeb.Controllers
             {
                 return BadRequest();
             }
-            var medicamento = await _context.Medicamento.FirstOrDefaultAsync(m => m.idMedicamento == id);
+            var sintoma = await _context.Sintoma.FirstOrDefaultAsync(s => s.idSintoma == id);
 
-            if (medicamento == null)
+            if (sintoma == null)
             {
                 return NotFound();
             }
-            medicamento.estado = true;
+            sintoma.estado = true;
 
 
             try
@@ -222,9 +213,11 @@ namespace ProyectoIngWeb.Controllers
 
             return Ok();
         }
-        private bool MedicamentoExists(int id)
+
+
+        private bool SintomaExists(int id)
         {
-            return _context.Medicamento.Any(e => e.idMedicamento == id);
+            return _context.Sintoma.Any(e => e.idSintoma == id);
         }
     }
 }

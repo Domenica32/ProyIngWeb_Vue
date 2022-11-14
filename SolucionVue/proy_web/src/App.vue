@@ -23,7 +23,7 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title >{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -99,6 +99,10 @@
           { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
           { title: 'Roles', icon: 'mdi-shield-account', to:'/roles'},
           { title: 'Medicamentos', icon: 'mdi-pill-multiple', to:'/Medicamentos'},
+          { title: 'Sintomas', icon: 'mdi-needle', to:'/Sintomas'},
+          { title: 'MedicamentoSintoma', icon: 'mdi-needle', to:'/MedicamentoSintoma'},
+
+
 
 
         ], 
