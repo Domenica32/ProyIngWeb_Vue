@@ -66,7 +66,7 @@
     >
       <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title> Sistema Ingenieria Web</v-toolbar-title>
+      <v-toolbar-title> Be Safe!</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -97,8 +97,8 @@
         
           {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
           { title: 'Usuarios', icon: 'mdi-account-plus', to:'/Usuarios'},
-          { title: 'Roles', icon: 'mdi-account-plus', to:'/roles'},
-          { title: 'Medicamentos', icon: 'mdi-account-plus', to:'/Medicamentos'},
+          { title: 'Roles', icon: 'mdi-shield-account', to:'/roles'},
+          { title: 'Medicamentos', icon: 'mdi-pill-multiple', to:'/Medicamentos'},
 
 
         ], 
