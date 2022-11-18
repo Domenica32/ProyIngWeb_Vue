@@ -1,9 +1,9 @@
 # ProyIngWeb_Vue
 Nombre: Doménica Rueda
 
-* [Login](#:bust_in_silhouette:Login)
+* [Login](#Login)
 
-* [Admin](#:closed_lock_with_key:Admin)
+* [Admin](#Admin)
 ## :bust_in_silhouette:Login
 
 
@@ -65,5 +65,22 @@ Nombre: Doménica Rueda
 ![image](https://user-images.githubusercontent.com/62667937/195994839-4e54f097-95f3-4863-8b4d-fd525b2bd586.png)
 
 ## :closed_lock_with_key:Admin
+
+El admin del proyecto es capaz de alimentar 3 tablas:
+- `Medicamentos`
+- `Sintomas`
+- `Relacion medicamento-sintoma`
+
+La relación de estas tablas en la base de datos es la siguiente:
+
+
+![image](https://user-images.githubusercontent.com/62667937/202650538-a885adf0-8c56-4752-a5fd-af6cb33797af.png)
+
+
+En el backend del proyecto cada tabla tiene  su clase entidad, datos, controlador y modelos
+
+
+
+
 
 
