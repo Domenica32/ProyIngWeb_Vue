@@ -64,6 +64,6 @@ Nombre: Doménica Rueda
 
 ![image](https://user-images.githubusercontent.com/62667937/195994839-4e54f097-95f3-4863-8b4d-fd525b2bd586.png)
 
-## :closed_lock_with_key: Admin
+## :closed_lock_with_key:Admin
 
 
