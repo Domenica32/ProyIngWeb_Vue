@@ -1,9 +1,9 @@
 # ProyIngWeb_Vue
 Nombre: Doménica Rueda
 
-* [Login](#Login)
+* [Login](#:bust_in_silhouette:Login)
 
-* [Admin](#Admin)
+* [Admin](#:closed_lock_with_key:Admin)
 ## :bust_in_silhouette:Login
 
 
