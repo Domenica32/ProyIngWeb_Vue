@@ -77,7 +77,28 @@ La relación de estas tablas en la base de datos es la siguiente:
 ![image](https://user-images.githubusercontent.com/62667937/202650538-a885adf0-8c56-4752-a5fd-af6cb33797af.png)
 
 
-En el backend del proyecto cada tabla tiene  su clase entidad, datos, controlador y modelos
+En el backend del proyecto cada tabla tiene 
+
+- `Capa de datos` : Una clase para mapeamiento de datos y DbContext
+
+![image](https://user-images.githubusercontent.com/62667937/202651445-52ab00bb-0810-4814-b7ec-5c91a4b6fd4d.png)
+
+- `Capa Entidad` : Una clase para cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202651589-f8c121d3-a069-4bda-b6a3-d59443aa4472.png)
+
+- `Modelos` : Modelos para cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202651742-4566668d-2989-447f-9621-ca1bbbebc829.png)
+
+- `Controladores` : Poseen los métodos GET, POST, DELETE, PUT  de cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202652334-04ed9f8d-4294-46b3-9858-6f5beb5b2502.png)
+
+
+
+
+
 
 
 
