@@ -11,7 +11,7 @@ namespace Datos.Mapping.Medicamentos
     {
         public void Configure(EntityTypeBuilder<RelacionMedicamentoSintoma> builder)
         {
-            builder.ToTable("RelacionMedicamentoSintoma")
+            builder.ToTable("Medicamento_Sintoma")
             .HasKey(ms => ms.idMedicamento_Sintoma);
         }
     }

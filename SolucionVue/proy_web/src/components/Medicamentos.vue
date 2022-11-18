@@ -145,6 +145,8 @@
           </v-btn>
         </template>
         </v-data-table>
+
+        
       </v-flex>
     </v-layout>
   </template>
@@ -154,6 +156,7 @@
   export default {
     data() {
       return {
+        
         medicamentos: [],
         dialog: false,
         dialogDelete: false,
@@ -193,6 +196,7 @@
     created() {
       this.initialize();
       this.Listar();
+      this.ListarSintomas();
       
     },
     methods: {
@@ -211,21 +215,9 @@
       },
       initialize() {
       this.medicamentos = [];
+      
       },
-      //select(){
-      //let me=this;
-      //var rolesArray=[];
-      //axios.get('api/Roles/Select'),then(function(response){
-       //  rolesArray=response.data;
-       //  rolesArray.map(function(x){
-       //   me.roles.push({value:x.idRolUsuarios});
-       //   console.log(rolesArray);
-       //   });
-       // }).catch(function(error){
-       // console.log(error);
-       // });
-   // },
-  
+      
       editItem(item) {
         //this.editedIndex = this.desserts.indexOf(item);
         //this.editedItem = Object.assign({}, item);

@@ -86,7 +86,6 @@ namespace ProyectoIngWeb.Controllers
             medicamento.nombre = model.nombre;
             medicamento.compuestoQuimico = model.nombre;
             medicamento.dosis = model.dosis;
-            medicamento.estado = model.estado;
             try
             {
                 await _context.SaveChangesAsync();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades.Medicamento;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,7 @@ namespace ProyectoIngWeb.Models.Medicamentos
         public string compuestoQuimico { get; set; }
         public string dosis { get; set; }
         public bool estado { get; set; }
+        public List<RelacionMedicamentoSintoma> MedicamentoSintomas { get; set; }
+
     }
 }

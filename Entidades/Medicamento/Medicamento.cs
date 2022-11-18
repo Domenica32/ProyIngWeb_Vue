@@ -19,5 +19,8 @@ namespace Entidades.Medicamento
         public string dosis { get; set; }
         public bool estado { get; set; }
 
+        public virtual List<RelacionMedicamentoSintoma> MedicamentoSintomas { get; set; }
+
+
     }
 }

@@ -2225,7 +2225,8 @@
       "Datos/1.0.0": {
         "dependencies": {
           "Entidades": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.30"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.30",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5"
         },
         "runtime": {
           "Datos.dll": {}

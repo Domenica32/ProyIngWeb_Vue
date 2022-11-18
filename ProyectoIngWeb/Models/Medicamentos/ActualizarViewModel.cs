@@ -11,10 +11,9 @@ namespace ProyectoIngWeb.Models.Medicamentos
         [Required]
         public int idMedicamento { get; set; }
         [Required]
-        [StringLength(60, MinimumLength = 3, ErrorMessage = "E l nombre no debe tener m[as de 50 ni menos de 3 caracteres")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "El nombre no debe tener m[as de 50 ni menos de 3 caracteres")]
         public string nombre { get; set; }
         public string compuestoQuimico { get; set; }
         public string dosis { get; set; }
-        public bool estado { get; set; }
     }
 }

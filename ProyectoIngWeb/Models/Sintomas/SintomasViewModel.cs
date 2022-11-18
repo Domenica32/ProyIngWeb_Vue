@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades.Medicamento;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace ProyectoIngWeb.Models.Sintomas
         public string LugarSintoma { get; set; }
         public string TipoMalestar { get; set; }
         public bool estado { get; set; }
+
+        public List<RelacionMedicamentoSintoma> MedicamentoSintomas { get; set; }
+
 
     }
 }
