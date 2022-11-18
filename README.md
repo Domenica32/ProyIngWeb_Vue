@@ -1,6 +1,10 @@
 # ProyIngWeb_Vue
 Nombre: Doménica Rueda
-# Login 
+
+* [Login](#Login)
+
+* [Admin](#Admin)
+## :bust_in_silhouette:Login
 
 
 ![image](https://user-images.githubusercontent.com/62667937/195994935-52cac8e7-8c6b-4ba1-82fc-7379b367ef93.png)
@@ -31,7 +35,7 @@ Nombre: Doménica Rueda
 ![image](https://user-images.githubusercontent.com/62667937/195994509-03f79079-fdf1-4fea-a716-51b40700728d.png)
 
 
-# Vue
+## :green_circle:Vue
 
 1. Desde el front-end se agrego un nuevo componente  login el cual tendra el diseño HTML
 
