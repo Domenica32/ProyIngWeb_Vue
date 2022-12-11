@@ -1,6 +1,10 @@
 # ProyIngWeb_Vue
 Nombre: Doménica Rueda
-# Login 
+
+* [Login](#Login)
+
+* [Admin](#Admin)
+## :bust_in_silhouette:Login
 
 
 ![image](https://user-images.githubusercontent.com/62667937/195994935-52cac8e7-8c6b-4ba1-82fc-7379b367ef93.png)
@@ -31,7 +35,7 @@ Nombre: Doménica Rueda
 ![image](https://user-images.githubusercontent.com/62667937/195994509-03f79079-fdf1-4fea-a716-51b40700728d.png)
 
 
-# Vue
+## :green_circle:Vue
 
 1. Desde el front-end se agrego un nuevo componente  login el cual tendra el diseño HTML
 
@@ -59,5 +63,45 @@ Nombre: Doménica Rueda
 
 
 ![image](https://user-images.githubusercontent.com/62667937/195994839-4e54f097-95f3-4863-8b4d-fd525b2bd586.png)
+
+## :closed_lock_with_key:Admin
+
+El admin del proyecto es capaz de alimentar 3 tablas:
+- `Medicamentos`
+- `Sintomas`
+- `Relacion medicamento-sintoma`
+
+La relación de estas tablas en la base de datos es la siguiente:
+
+
+![image](https://user-images.githubusercontent.com/62667937/202650538-a885adf0-8c56-4752-a5fd-af6cb33797af.png)
+
+
+En el backend del proyecto cada tabla tiene 
+
+- `Capa de datos` : Una clase para mapeamiento de datos y DbContext
+
+![image](https://user-images.githubusercontent.com/62667937/202651445-52ab00bb-0810-4814-b7ec-5c91a4b6fd4d.png)
+
+- `Capa Entidad` : Una clase para cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202651589-f8c121d3-a069-4bda-b6a3-d59443aa4472.png)
+
+- `Modelos` : Modelos para cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202651742-4566668d-2989-447f-9621-ca1bbbebc829.png)
+
+- `Controladores` : Poseen los métodos GET, POST, DELETE, PUT  de cada tabla 
+
+![image](https://user-images.githubusercontent.com/62667937/202652334-04ed9f8d-4294-46b3-9858-6f5beb5b2502.png)
+
+
+
+
+
+
+
+
+
 
 
