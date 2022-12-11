@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoIngWeb.Models.Usuarios.Rol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +16,8 @@ namespace ProyectoIngWeb.Models.Usuarios
         public string EmailUsuario { get; set; }
         public byte[] PasswordUsuario_hash { get; set; }
         public bool condicion { get; set; }
+
+        public RolViewModel rol { get; set; }
+
     }
 }

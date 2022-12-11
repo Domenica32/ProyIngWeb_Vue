@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entidades.Usuarios
 {
+    [Table("Usuarios")]
     public class Usuario
     {
+        [Key]
         public int idUsuarios { get; set; }
         [Required]
         public int idRolUsuarios_FK { get; set; }
@@ -21,5 +25,9 @@ namespace Entidades.Usuarios
         public bool condicion { get; set; }
 
         //public RolUsuarios RolUsuarios { get; set; }
+        [ForeignKey("idRolUsuarios_FK")]
+
+        public virtual RolUsuarios rol { get; set; }
+
     }
 }

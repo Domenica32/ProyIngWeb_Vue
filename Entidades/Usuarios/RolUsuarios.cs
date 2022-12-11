@@ -13,6 +13,8 @@ namespace Entidades.Usuarios
     public string descripcion { get; set; }
     public  bool condicion { get; set; }
 
-    //public ICollection<Usuario> Usuarios { get;  set; }
+        //public ICollection<Usuario> Usuarios { get;  set; }
+      public virtual List<Usuario> Usuarios { get; set; }
+
     }
 }

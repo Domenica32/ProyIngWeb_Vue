@@ -24,6 +24,7 @@ export default new Vuex.Store({
       commit("setToken",token)
       commit("setUsuario", decode(token))
       localStorage.setItem("token",token)
+      console.log(token)
     },
     autoLogin({commit}){//verificar si el usuario ya ingreso sus credenciales correctas y se ha generado un token
         let token = localStorage.getItem("token")

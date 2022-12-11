@@ -32,7 +32,7 @@ namespace Datos
         
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new UsuariosMap());//Aplicar la configuracion de UsuariosMap
+            //modelBuilder.ApplyConfiguration(new UsuariosMap());//Aplicar la configuracion de UsuariosMap
             modelBuilder.ApplyConfiguration(new RolMap());//Aplicar la configuracion de RolMap
             modelBuilder.ApplyConfiguration(new MedicamentoMap());
             modelBuilder.ApplyConfiguration(new SintomaMap());

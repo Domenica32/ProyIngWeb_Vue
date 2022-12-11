@@ -10,9 +10,11 @@ using Entidades.Medicamento;
 using ProyectoIngWeb.Models.MedicametoSintomas;
 using ProyectoIngWeb.Models.Medicamentos;
 using ProyectoIngWeb.Models.Sintomas;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+    //[Authorize(Roles = "1")]
     [Route("api/[controller]")]
     [ApiController]
     public class RelacionMedicamentoSintomasController : ControllerBase
@@ -47,7 +49,30 @@ namespace ProyectoIngWeb.Controllers
 
 
 
-            }); ;
+            }); 
+        }
+
+        // GET: api/Medicamentos/ListarMedicamentoCore
+        public async Task<Boolean> ListarSintomaCore(int sintoma, int idMedicamento)
+        {
+            var Medsintomas = await _context.MedicamentoSintoma.Include(ms => ms.sintoma).ToListAsync();
+
+            List<MedicamentoSintomaViewModel> ListaMedicamento = Medsintomas.Select(ms => new MedicamentoSintomaViewModel
+            {
+                idMedicamento_FK = ms.idMedicamento_FK,
+                idSintoma_FK = ms.idSintoma_FK
+
+            }).Where(m => m.idMedicamento_FK == idMedicamento).ToList();
+
+
+            foreach (MedicamentoSintomaViewModel medSintoma in ListaMedicamento)
+            {
+               if(medSintoma.idSintoma_FK== sintoma)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         // GET: api/RelacionMedicamentoSintomas/5

@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Datos;
 using Entidades.Medicamento;
 using ProyectoIngWeb.Models.Sintomas;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+
+    //[Authorize(Roles = "1")]
     [Route("api/[controller]")]
     [ApiController]
     public class SintomasController : ControllerBase
@@ -35,6 +38,22 @@ namespace ProyectoIngWeb.Controllers
                 TipoMalestar = s.TipoMalestar,
                 estado = s.estado
             });
+        }
+
+
+        // GET: api/Sintomas/ListarSelect
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<SintomasViewModel>> ListarSelect()
+        {
+            var sintomas = await _context.Sintoma.ToListAsync();
+
+            return sintomas.Select(s => new SintomasViewModel
+            {
+                idSintoma = s.idSintoma,
+                LugarSintoma = s.LugarSintoma,
+                TipoMalestar = s.TipoMalestar,
+                estado = s.estado
+            }).Where(s => s.estado);
         }
 
         // GET: api/Sintomas/Mostrar/5

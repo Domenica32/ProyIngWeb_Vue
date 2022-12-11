@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
+using ProyectoIngWeb.Models.Usuarios.Rol;
 
 namespace ProyectoIngWeb.Controllers
 {
@@ -40,7 +41,7 @@ namespace ProyectoIngWeb.Controllers
 
 
             //var usuario = await _context.Usuarios.Include(c => c.RolUsuarios).ToListAsync();
-            var usuario = await _context.Usuarios.ToListAsync();
+            var usuario = await _context.Usuarios.Include(rolU => rolU.rol).ToListAsync();
 
             return usuario.Select(c => new UsuariosViewModel
             {
@@ -51,7 +52,12 @@ namespace ProyectoIngWeb.Controllers
                 ApellidoUsuario = c.ApellidoUsuario,
                 EmailUsuario = c.EmailUsuario,
                 PasswordUsuario_hash = c.PasswordUsuario_hash,
-                condicion = c.condicion
+                condicion = c.condicion,
+                rol = new RolViewModel
+                {
+                    Nombre = c.rol.Nombre
+                },
+
             });
         }
 
@@ -296,6 +302,7 @@ namespace ProyectoIngWeb.Controllers
                 new Claim (ClaimTypes.NameIdentifier, usuario.idUsuarios.ToString()),
                 new Claim (ClaimTypes.Email,email),
                 new Claim (ClaimTypes.Role,usuario.idRolUsuarios_FK.ToString()),
+                
                 //para VUE
                 new Claim ("idUsuarios",usuario.idUsuarios.ToString()),
                 new Claim ("NombreUsuario",usuario.NombreUsuario),

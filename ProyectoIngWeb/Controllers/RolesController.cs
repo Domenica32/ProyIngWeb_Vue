@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
-   // [Authorize(Roles = "1" )]
+    //[Authorize(Roles = "1")]
     [Route("api/[controller]")]
     [ApiController]
     public class RolesController : ControllerBase

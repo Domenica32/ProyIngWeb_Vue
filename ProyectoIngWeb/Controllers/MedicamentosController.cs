@@ -8,22 +8,29 @@ using Microsoft.EntityFrameworkCore;
 using Datos;
 using Entidades.Medicamento;
 using ProyectoIngWeb.Models.Medicamentos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+    //[Authorize(Roles = "1")]
     [Route("api/[controller]")]
     [ApiController]
     public class MedicamentosController : ControllerBase
     {
         private readonly DbContextProy _context;
+        public RelacionMedicamentoSintomasController MedicamentoSintoma;
 
         public MedicamentosController(DbContextProy context)
         {
             _context = context;
+             MedicamentoSintoma = new RelacionMedicamentoSintomasController(context);
+
         }
 
-        // GET: api/Medicamentos/Listar
-        [HttpGet("[action]")]
+
+    // GET: api/Medicamentos/Listar
+
+    [HttpGet("[action]")]
         public async Task<IEnumerable<MedicamentosViewModel>> Listar()
         {
             var medicamentos = await _context.Medicamento.ToListAsync();
@@ -37,6 +44,56 @@ namespace ProyectoIngWeb.Controllers
                 estado = m.estado
             });
         }
+
+        // GET: api/Medicamentos/ListarSelect
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<MedicamentosViewModel>> ListarSelect()
+        {
+            var medicamentos = await _context.Medicamento.ToListAsync();
+
+            return medicamentos.Select(m => new MedicamentosViewModel
+            {
+                idMedicamento = m.idMedicamento,
+                nombre = m.nombre,
+                compuestoQuimico = m.compuestoQuimico,
+                dosis = m.dosis,
+                estado = m.estado
+            }).Where(m => m.estado == true);
+        }
+
+
+        //CORE 
+        // GET: api/Medicamentos/ListarMedicamentoCore
+        [HttpGet("[action]/{alergia}:{sintoma}")]
+        public async Task<IEnumerable<MedicamentosViewModel>> ListarMedicamentoCore(int sintoma, [FromRoute] string alergia)
+        {
+            var medicamentos = await _context.Medicamento.ToListAsync();
+
+            List<MedicamentosViewModel> ListaCoreMedicamentos = medicamentos.Select(m => new MedicamentosViewModel
+            {
+                nombre = m.nombre,
+                compuestoQuimico = m.compuestoQuimico,
+                estado = m.estado,
+                idMedicamento = m.idMedicamento
+            }).Where(m => m.estado == true).ToList();
+
+            List<MedicamentosViewModel> ListaComparacionMedicamento = new List<MedicamentosViewModel>() ;
+
+            foreach (MedicamentosViewModel medicamento in ListaCoreMedicamentos)
+            {
+                if (!medicamento.compuestoQuimico.Equals(alergia) )
+                {
+                    var comprobacion = await MedicamentoSintoma.ListarSintomaCore(sintoma,medicamento.idMedicamento);
+                    if (comprobacion) { 
+                        ListaComparacionMedicamento.Add(medicamento);
+                        }
+                }
+            }
+            return ListaComparacionMedicamento;
+        }
+
+
+
 
 
 

@@ -7,7 +7,7 @@ import LoginUsuarios from '../components/LoginUsuarios.vue'
 import Medicamentos from '../components/Medicamentos.vue'
 import Sintomas from '../components/Sintomas.vue'
 import MedicamentoSintoma from '../components/MedicamentoSintoma.vue'
-
+import Sugerencia from '../components/Sugerencia.vue'
 
 import store from '../store/store'
 
@@ -74,6 +74,14 @@ var router = new VueRouter(
           component: Rol,
           meta: {
             administrador:true
+          }
+        },
+        {
+          path: '/sugerencia',
+          name: 'sugerencia',
+          component: Sugerencia,
+          meta: {
+            usuarioNormal:true
           }
         },
         {

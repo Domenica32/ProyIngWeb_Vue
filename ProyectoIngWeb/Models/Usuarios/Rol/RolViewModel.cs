@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades.Usuarios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,5 +12,8 @@ namespace ProyectoIngWeb.Models.Usuarios.Rol
         public string Nombre { get; set; }
         public string descripcion { get; set; }
         public bool condicion { get; set; }
+
+        public virtual List<Usuario> Usuarios { get; set; }
+
     }
 }
