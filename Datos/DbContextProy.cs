@@ -4,6 +4,7 @@ using System.Text;
 using Datos.Mapping.Medicamentos;
 using Datos.Mapping.Usuarios;
 using Entidades.Medicamento;
+using Entidades.Sugerencia;
 using Entidades.Usuarios;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +16,12 @@ namespace Datos
         public DbSet <Usuario> Usuarios { get; set; }//Exponer la coleccion de usuarios en ese objeto
         public DbSet<RolUsuarios> Roles { get; set; }//Exponer la coleccion de usuarios en ese objeto
 
-        public DbSet<Medicamento> Medicamento { get; set; }
+        public DbSet<Medicamentos> Medicamento { get; set; }
         public DbSet<Sintoma> Sintoma { get; set; }
 
         public DbSet<RelacionMedicamentoSintoma> MedicamentoSintoma { get; set; }
 
-
+        public DbSet<SugerenciaMedicina> Sugerencia { get; set; }
 
         //CONSTRUCTOR 
         public DbContextProy(DbContextOptions<DbContextProy> options) : base(options)

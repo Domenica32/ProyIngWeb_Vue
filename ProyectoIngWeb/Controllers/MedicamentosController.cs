@@ -163,7 +163,7 @@ namespace ProyectoIngWeb.Controllers
                 return BadRequest(ModelState);
             }
            
-            Medicamento med = new Medicamento
+            Medicamentos med = new Medicamentos
             {
                 nombre = model.nombre,
                 compuestoQuimico = model.compuestoQuimico,

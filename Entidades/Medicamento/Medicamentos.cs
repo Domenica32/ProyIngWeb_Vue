@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Entidades.Sugerencia;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Entidades.Medicamento
 {
-    public class Medicamento
+    public class Medicamentos
     {
         public int idMedicamento { get; set; }
         [Required]
@@ -20,6 +21,8 @@ namespace Entidades.Medicamento
         public bool estado { get; set; }
 
         public virtual List<RelacionMedicamentoSintoma> MedicamentoSintomas { get; set; }
+
+
 
 
     }

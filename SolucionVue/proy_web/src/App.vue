@@ -108,8 +108,8 @@
         ], 
       itemsNormal:[
       {title: 'Inicio', icon:'mdi-ray-start-vertex-end', to:'/' },
-      {title: 'Solicitar Sugerencia', icon:'mdi-ray-start-vertex-end', to:'/sugerencia' },
-      {title: 'Historial', icon:'mdi-ray-start-vertex-end', to:'/' },
+      {title: 'Solicitar Sugerencia', icon:'mdi-information', to:'/sugerencia' },
+      {title: 'Historial Sugerencia', icon:'mdi-history', to:'/HistorialSugerencia' },
 
       ],
     

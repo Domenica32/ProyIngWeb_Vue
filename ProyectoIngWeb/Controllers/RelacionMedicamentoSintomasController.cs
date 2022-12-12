@@ -52,7 +52,6 @@ namespace ProyectoIngWeb.Controllers
             }); 
         }
 
-        // GET: api/Medicamentos/ListarMedicamentoCore
         public async Task<Boolean> ListarSintomaCore(int sintoma, int idMedicamento)
         {
             var Medsintomas = await _context.MedicamentoSintoma.Include(ms => ms.sintoma).ToListAsync();

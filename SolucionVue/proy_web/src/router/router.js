@@ -8,6 +8,8 @@ import Medicamentos from '../components/Medicamentos.vue'
 import Sintomas from '../components/Sintomas.vue'
 import MedicamentoSintoma from '../components/MedicamentoSintoma.vue'
 import Sugerencia from '../components/Sugerencia.vue'
+import HistorialSugerencia from '../components/HistorialSugerencia.vue'
+
 
 import store from '../store/store'
 
@@ -80,6 +82,14 @@ var router = new VueRouter(
           path: '/sugerencia',
           name: 'sugerencia',
           component: Sugerencia,
+          meta: {
+            usuarioNormal:true
+          }
+        },
+        {
+          path: '/HistorialSugerencia',
+          name: 'HistorialSugerencia',
+          component: HistorialSugerencia,
           meta: {
             usuarioNormal:true
           }

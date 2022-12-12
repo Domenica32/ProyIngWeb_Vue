@@ -24,10 +24,11 @@ namespace Entidades.Medicamento
         [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
         public int idSintoma_FK { get; set; }
         [ForeignKey("idMedicamento_FK")]
-        public virtual Medicamento medicamento { get; set;}
+        public virtual Medicamentos medicamento { get; set;}
         [ForeignKey("idSintoma_FK")]
 
         public virtual Sintoma sintoma { get; set; }
+
 
 
     }
