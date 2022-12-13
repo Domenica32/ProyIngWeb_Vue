@@ -74,13 +74,17 @@
             Consultar medicamentos
           </v-btn>
 
-          </template></v-dialog></v-col>
+          </template>
+        </v-dialog>
+      </v-col>
     </v-row>
+
     <v-data-table
           :headers="headers"
           :items="medicamentosComparacion"
           :search="search"
           class="elevation-1"
+          v-show="tabla"
         >
        
 
@@ -110,11 +114,11 @@
         </template>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
-
+        
         </v-data-table>
-        <v-row >
+        <v-row v-show="tabla">
         <v-col>
-        <v-dialog v-model="dialog" max-wiidth="500px">
+        <v-dialog v-model="dialog" max-wiidth="500px" >
           <template v-slot:activator="{ on, attrs }">
           <v-btn 
           style="    right: -414px; top: 10px;"
@@ -141,6 +145,7 @@
         sintomas: [],
         select:null,
         select2:null,
+        tabla:false,
         medicamentos:[],
         medicamentosComparacion:[],
         medicamentoSugerencia:[],
@@ -219,14 +224,14 @@
 
       },
       Comparacion() {
+        this.tabla=true;
         let me = this;
         let header={"Authorization" : "Bearer " + this.$store.state.token};
         let configuracion= {headers : header};
         axios.get("/api/Medicamentos/ListarMedicamentoCore/"+this.select+":"+this.select2)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.medicamentosComparacion = response.data;
-            
             
           })
           .catch(function (error) {
@@ -252,7 +257,23 @@
             console.log(error);
           });
       },
-      
+      GuardarSugerencia() {
+         
+            let me=this;
+            console.log(this);
+            axios.post('/api/Medicamentos/Crear',{
+              'idMedicamento_FK': me.idMedicamento_FK,
+              'idUsuario_FK': "nose",
+    
+            }).then(function(response){
+              me.close();
+              me.Listar();
+              me.limpiar();
+              
+            }).catch(function (error){
+              console.log(error);
+            });
+        },
       
   
       limpiar(){

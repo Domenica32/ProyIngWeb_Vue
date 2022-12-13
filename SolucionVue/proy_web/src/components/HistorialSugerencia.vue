@@ -2,7 +2,7 @@
     <v-layout align-start>
       <v-flex>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Medicamentos</v-toolbar-title>
+        <v-toolbar-title>Historial de sugerencias</v-toolbar-title>
         <v-divider
         class="mx-2"
         inset  
@@ -10,47 +10,7 @@
         <v-spacer></v-spacer>
         <v-text-field class="text-xs-center" v-model="search" append-icon="search" label="Busqueda" single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-wiidth="500px">
-          <template v-slot:activator="{ on, attrs }">
-          <v-btn color="teal lighten-3" dark class="mb-2" v-bind="attrs" v-on="on">
-          Nuevo Medicamento
-          </v-btn>
-          </template>
-        <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-  
-            <v-card-text>
-              <v-container >
-                <v-row>
-                  <!--Para llenar los campos del dialogo editar -->
-                  <v-flex  xs12 sm12 md12>
-                   <v-text-field v-model="Nombre" label="Nombre Medicamento"></v-text-field>
-                   <!--<v-select v-model="idRolUsuarios_FK" :items="roles" label="Rol Usuario"></v-select>-->
-                  </v-flex>
-                  <v-flex  xs12 sm12 md12>
-                    <v-text-field v-model="CompuestoQuimico" label="Compuesto Quimico"></v-text-field>
-                  </v-flex>
-                  <v-flex  xs12 sm12 md12>
-                    <v-text-field v-model="Dosis" label="Dosis"></v-text-field>
-                  </v-flex>
-                  
-                  <v-flex  xs12 sm12 md12 v-show="valida">
-                    <div class="red--text" v-for="v in validaMensaje" :key="v" v-text="v">
-                    </div>
-                  </v-flex>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="teal lighten-3" text  @click="close">Cancel</v-btn>
-              <v-btn color="teal lighten-3" text  @click="save">Save</v-btn>
-  
-            </v-card-actions>
-          </v-card> 
-        </v-dialog>
+        
        <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">Estas seguro que deseas eliminarlo?</v-card-title>
@@ -62,28 +22,8 @@
             </v-card-action>
           </v-card>
         </v-dialog> 
-        <v-dialog v-model="dialogActivar" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Estas seguro que deseas Activar?</v-card-title>
-            <v-card-action>
-              <v-spacer></v-spacer>
-              <v-btn color="teal lighten-3" text  @click="closeDelete">Cancel</v-btn>
-              <v-btn color="teal lighten-3" text  @click="ActivarItemConfirm">Ok</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-action>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDesactivar" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Estas seguro que deseas Desactivar?</v-card-title>
-            <v-card-action>
-              <v-spacer></v-spacer>
-              <v-btn color="teal lighten-3" text  @click="closeDelete">Cancel</v-btn>
-              <v-btn color="teal lighten-3" text  @click="DesactivarItemConfirm">Ok</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-action>
-          </v-card>
-        </v-dialog>
+       
+        
       </v-toolbar>
   
         <v-data-table
@@ -92,26 +32,11 @@
           :search="search"
           class="elevation-1"
         >
-        <template v-slot:[`item.actions2`]="{ item }">
-            <td>
-                        <div v-if="item.estado">
-                            <span class="blue--text">Activo</span>
-                        </div>
-                        <div v-else>
-                            <span class="red--text">Inactivo</span>
-                        </div>
-                    </td>
-        </template>
+       
 
         <template v-slot:[`item.actions`]="{ item }">
           
-          <v-icon
-            small
-            class="mr-2"
-            @click="editItem(item)"
-          >
-            mdi-pencil
-          </v-icon>
+        
           <v-icon
             small
             @click="deleteItem(item)"
@@ -119,22 +44,8 @@
             mdi-delete
           </v-icon>
 
-        <template v-if="item.estado">
-            <v-icon
-            small
-            @click="DesactivarItem(item)"
-          >
-            block
-          </v-icon> 
-        </template>
-        <template v-else>
-            <v-icon
-            small
-            @click="ActivarItem(item)"
-          >
-            check
-          </v-icon> 
-        </template>
+       
+        
         </template>
         <template v-slot:no-data>
           <v-btn
@@ -163,11 +74,10 @@
         dialogActivar:false,
         dialogDesactivar: false,
         headers: [
-          { text: "#", value: "idMedicamento", sortable: false, align:"start"},
-          { text: "Nombre Medicamento", value: "nombre"},
-          { text: "Compuesto Quimico", value: "compuestoQuimico" },
-          { text: "Dosis", value: "dosis" },
-          { text: "Estado", value: "actions2"},
+          { text: "Nombre Medicamento", value: "medicamento.nombre"},
+          { text: "Compuesto Quimico", value: "medicamento.compuestoQuimico"},
+          { text: "Dosis", value: "medicamento.dosis" },
+          { text: "Persona", value: "usuario.nombreUsuario" },
           { text: "Opciones", value: "actions", sortable: false },
         ],
         search: '',
@@ -204,9 +114,9 @@
         let me = this;
         let header={"Authorization" : "Bearer " + this.$store.state.token};
         let configuracion= {headers : header};
-        axios.get("/api/Medicamentos/Listar",configuracion)
+        axios.get("/api/SugerenciaMedicinas/Listar",configuracion)
           .then(function (response) {
-            //console.log(response);
+            console.log(response);
             me.medicamentos = response.data;
           })
           .catch(function (error) {
@@ -218,36 +128,8 @@
       
       },
       
-      editItem(item) {
-        //this.editedIndex = this.desserts.indexOf(item);
-        //this.editedItem = Object.assign({}, item);
-        //console.log(this.editedItem);
-        this.idMedicamento = item.idMedicamento;
-        this.Nombre = item.nombre;
-        this.CompuestoQuimico = item.compuestoQuimico;
-        this.Dosis = item.dosis;
-        this.editedIndex=1;
-        this.dialog = true;
-      },
   
-      deleteItem(item) {
-        this.editedIndex = this.medicamentos.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.idMedicamento = item.idMedicamento;
-        this.dialogDelete = true;
-      },
-      DesactivarItem(item) {
-        this.editedIndex = this.medicamentos.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.idMedicamento = item.idMedicamento;
-        this.dialogDesactivar = true;
-      },
-      ActivarItem(item) {
-        this.editedIndex = this.medicamentos.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.idMedicamento = item.idMedicamento;
-        this.dialogActivar = true;
-      },
+    
   
       deleteItemConfirm() {
         //Codigo para editar
@@ -264,36 +146,7 @@
           });
         this.closeDelete();
       },
-      DesactivarItemConfirm() {
-        //Codigo para editar
-        let me=this;
-          //console.log(this);
-          axios.put('/api/Medicamentos/Desactivar/'+me.idMedicamento)
-          .then(function(response){
-            me.close();
-            me.Listar();
-            me.limpiar();
-            
-          }).catch(function (error){
-            console.log(error);
-          });
-        this.closeDelete();
-      },
-      ActivarItemConfirm() {
-        //Codigo para editar
-        let me=this;
-          //console.log(this);
-          axios.put('/api/Medicamentos/Activar/'+me.idMedicamento)
-          .then(function(response){
-            me.close();
-            me.Listar();
-            me.limpiar();
-            
-          }).catch(function (error){
-            console.log(error);
-          });
-        this.closeDelete();
-      },
+     
   
       close() {
         this.dialog = false;

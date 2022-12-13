@@ -100,7 +100,7 @@
                         <div v-else>
                             <span class="red--text">Inactivo</span>
                         </div>
-                    </td>
+            </td>
         </template>
 
         <template v-slot:[`item.actions`]="{ item }">

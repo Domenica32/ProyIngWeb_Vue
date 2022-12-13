@@ -57,78 +57,37 @@ namespace ProyectoIngWeb.Controllers
             });
         }
 
-        // GET: api/SugerenciaMedicinas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SugerenciaMedicina>> GetSugerenciaMedicina(int id)
-        {
-            var sugerenciaMedicina = await _context.Sugerencia.FindAsync(id);
 
-            if (sugerenciaMedicina == null)
+        // POST: api/SugerenciaMedicinas/Crear
+        [HttpPost("[action]")]
+        public async Task<ActionResult> Crear([FromBody]  CrearSugerenciaViewModel model)
+        {
+
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            return sugerenciaMedicina;
-        }
+            SugerenciaMedicina sugerencia = new SugerenciaMedicina
+            {
+                idMedicamento_FK = model.idMedicamento_FK,
+                idUsuario_FK =model.idUsuario_FK
+                
 
-        // PUT: api/SugerenciaMedicinas/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSugerenciaMedicina(int id, SugerenciaMedicina sugerenciaMedicina)
-        {
-            if (id != sugerenciaMedicina.idSugerencia)
+            };
+            _context.Sugerencia.Add(sugerencia);
+            try
+            {
+
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
             {
                 return BadRequest();
             }
 
-            _context.Entry(sugerenciaMedicina).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SugerenciaMedicinaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/SugerenciaMedicinas
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<SugerenciaMedicina>> PostSugerenciaMedicina(SugerenciaMedicina sugerenciaMedicina)
-        {
-            _context.Sugerencia.Add(sugerenciaMedicina);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSugerenciaMedicina", new { id = sugerenciaMedicina.idSugerencia }, sugerenciaMedicina);
-        }
-
-        // DELETE: api/SugerenciaMedicinas/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<SugerenciaMedicina>> DeleteSugerenciaMedicina(int id)
-        {
-            var sugerenciaMedicina = await _context.Sugerencia.FindAsync(id);
-            if (sugerenciaMedicina == null)
-            {
-                return NotFound();
-            }
-
-            _context.Sugerencia.Remove(sugerenciaMedicina);
-            await _context.SaveChangesAsync();
-
-            return sugerenciaMedicina;
+            return Ok();
         }
 
         private bool SugerenciaMedicinaExists(int id)
