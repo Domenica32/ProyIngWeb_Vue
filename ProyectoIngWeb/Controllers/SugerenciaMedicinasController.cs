@@ -10,9 +10,11 @@ using Entidades.Sugerencia;
 using ProyectoIngWeb.Models.Sugerencia;
 using ProyectoIngWeb.Models.Medicamentos;
 using ProyectoIngWeb.Models.Usuarios;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
+   // [Authorize(Roles ="Usuarios")]
     [Route("api/[controller]")]
     [ApiController]
     public class SugerenciaMedicinasController : ControllerBase
@@ -30,7 +32,9 @@ namespace ProyectoIngWeb.Controllers
 
         {
             var sugerencia = await _context.Sugerencia.Include(m => m.medicamento).Include(u => u.usuario).ToListAsync();
+            var userContext = HttpContext.User;
 
+            var userId = int.Parse(userContext.Claims.First(c => c.Type == "idUsuarios").Value);
 
             //Console.Write(Medsintomas);
             return sugerencia.Select(s => new SugerenciaViewModel
@@ -54,7 +58,7 @@ namespace ProyectoIngWeb.Controllers
 
 
 
-            });
+            }).Where(u => u.idUsuario_FK == userId);
         }
 
 
@@ -62,6 +66,11 @@ namespace ProyectoIngWeb.Controllers
         [HttpPost("[action]")]
         public async Task<ActionResult> Crear([FromBody]  CrearSugerenciaViewModel model)
         {
+            var userContext = HttpContext.User;
+
+            var userId = int.Parse(userContext.Claims.First(c => c.Type == "idUsuarios").Value);
+
+            var userEntity = await _context.Usuarios.FirstAsync(u => u.idUsuarios == userId);
 
             if (!ModelState.IsValid)
             {
@@ -71,7 +80,7 @@ namespace ProyectoIngWeb.Controllers
             SugerenciaMedicina sugerencia = new SugerenciaMedicina
             {
                 idMedicamento_FK = model.idMedicamento_FK,
-                idUsuario_FK =model.idUsuario_FK
+                idUsuario_FK = userId
                 
 
             };
@@ -88,6 +97,35 @@ namespace ProyectoIngWeb.Controllers
             }
 
             return Ok();
+        }
+
+        // DELETE: api/SugerenciaMedicinas/Eliminar/5
+        [HttpDelete("[action]/{id}")]
+        public async Task<ActionResult> Eliminar([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var sugerencia = await _context.Sugerencia.FindAsync(id);
+            if (sugerencia == null)
+            {
+                return NotFound();
+            }
+
+            _context.Sugerencia.Remove(sugerencia);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
+
+
+            return Ok(sugerencia);
         }
 
         private bool SugerenciaMedicinaExists(int id)

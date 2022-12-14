@@ -294,6 +294,10 @@ namespace ProyectoIngWeb.Controllers
                 return NotFound();
             }
 
+            var role = await this._context.Roles.FirstAsync(r => r.idRolUsuarios == usuario.idRolUsuarios_FK);
+
+            var roles = new string[] { role.Nombre };
+
             var claims = new List<Claim>
             {
                 //Claims contiene informacion acerca del usuario
@@ -306,7 +310,9 @@ namespace ProyectoIngWeb.Controllers
                 //para VUE
                 new Claim ("idUsuarios",usuario.idUsuarios.ToString()),
                 new Claim ("NombreUsuario",usuario.NombreUsuario),
-                new Claim ("idRol",usuario.idRolUsuarios_FK.ToString())
+                new Claim ("idRol",usuario.idRolUsuarios_FK.ToString()),
+                new Claim("role", role.Nombre),
+
 
 
             };

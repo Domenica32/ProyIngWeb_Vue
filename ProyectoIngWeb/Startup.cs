@@ -47,8 +47,8 @@ namespace ProyectoIngWeb
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
@@ -70,17 +70,16 @@ namespace ProyectoIngWeb
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                app.UseCors("Todos");
-                app.UseAuthentication();
+               
             });
 
-            app.UseCors("Todos");
             //app.UseAuthentication();
 
         }

@@ -74,14 +74,16 @@
         dialogActivar:false,
         dialogDesactivar: false,
         headers: [
+        { text: "id", value: "idSugerencia"},
           { text: "Nombre Medicamento", value: "medicamento.nombre"},
           { text: "Compuesto Quimico", value: "medicamento.compuestoQuimico"},
           { text: "Dosis", value: "medicamento.dosis" },
-          { text: "Persona", value: "usuario.nombreUsuario" },
+          //{ text: "Persona", value: "usuario.nombreUsuario" },
           { text: "Opciones", value: "actions", sortable: false },
         ],
         search: '',
         editedIndex: -1,
+          idSugerencia:0,
           idMedicamento:0,
           Nombre: "",
           CompuestoQuimico:"",
@@ -127,7 +129,12 @@
       this.medicamentos = [];
       
       },
-      
+      deleteItem(item) {
+        this.editedIndex = this.medicamentos.indexOf(item);
+        this.editedItem = Object.assign({}, item);
+        this.idSugerencia = item.idSugerencia;
+        this.dialogDelete = true;
+      },
   
     
   
@@ -135,7 +142,7 @@
         //Codigo para editar
         let me=this;
           console.log(this);
-          axios.delete('/api/Medicamentos/Eliminar/'+me.idMedicamento)
+          axios.delete('/api/SugerenciaMedicinas/Eliminar/'+me.idSugerencia)
           .then(function(response){
             me.close();
             me.Listar();

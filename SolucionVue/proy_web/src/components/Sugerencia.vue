@@ -228,7 +228,7 @@
         let me = this;
         let header={"Authorization" : "Bearer " + this.$store.state.token};
         let configuracion= {headers : header};
-        axios.get("/api/Medicamentos/ListarMedicamentoCore/"+this.select+":"+this.select2)
+        axios.get("/api/Medicamentos/ListarMedicamentoCore/"+this.select+":"+this.select2,configuracion)
           .then(function (response) {
             //console.log(response);
             me.medicamentosComparacion = response.data;
@@ -258,14 +258,18 @@
           });
       },
       GuardarSugerencia() {
-         
+         let i=0;
+          for(i=0;i<this.medicamentoSugerencia.length; i++){
             let me=this;
             console.log(this);
-            axios.post('/api/Medicamentos/Crear',{
-              'idMedicamento_FK': me.idMedicamento_FK,
-              'idUsuario_FK': "nose",
+            
+             axios.post('/api/SugerenciaMedicinas/Crear',{
+              'idMedicamento_FK': this.medicamentoSugerencia[i].idMedicamento,
     
-            }).then(function(response){
+            }, {headers: {
+              "Authorization":"Bearer " + this.$store.state.token
+              
+            }}).then(function(response){
               me.close();
               me.Listar();
               me.limpiar();
@@ -273,6 +277,8 @@
             }).catch(function (error){
               console.log(error);
             });
+          }
+            
         },
       
   
