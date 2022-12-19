@@ -9,5 +9,7 @@ namespace ProyectoIngWeb.Models.Sugerencia
     {
         public int idMedicamento_FK { get; set; }
         public int idUsuario_FK { get; set; }
+        public DateTime fecha { get; set; }
+
     }
 }

@@ -141,6 +141,7 @@
   export default {
     data() {
       return {
+        dialog:false,
         relacion:[],
         sintomas: [],
         select:null,
@@ -173,12 +174,7 @@
       },
     },
     watch: {
-      dialog(val) {
-        val || this.close();
-      },
-      dialogDelete(val) {
-        val || this.closeDelete();
-      },
+      
     },
     created() {
       this.initialize();
@@ -193,7 +189,7 @@
         let configuracion= {headers : header};
         axios.get("/api/Medicamentos/ListarSelect",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.medicamentos = response.data;
             
             
@@ -212,15 +208,13 @@
         }else{
           this.medicamentoSugerencia.find(i => i.idMedicamento== item.idMedicamento)
           let i=0;
-          for( i=0 ; i<this.medicamentoSugerencia.length; i++){
-            if(this.medicamentoSugerencia[i].idMedicamento==item.idMedicamento)
-              break
-          }
+
+          
           this.medicamentoSugerencia.splice(item,1)
  
  
         }
-        console.log(this.medicamentoSugerencia)
+        //console.log(this.medicamentoSugerencia)
 
       },
       Comparacion() {
@@ -250,7 +244,7 @@
         let configuracion= {headers : header};
         axios.get("/api/Sintomas/ListarSelect",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.sintomas = response.data;
           })
           .catch(function (error) {
@@ -261,7 +255,7 @@
          let i=0;
           for(i=0;i<this.medicamentoSugerencia.length; i++){
             let me=this;
-            console.log(this);
+            //console.log(this);
             
              axios.post('/api/SugerenciaMedicinas/Crear',{
               'idMedicamento_FK': this.medicamentoSugerencia[i].idMedicamento,
@@ -270,7 +264,7 @@
               "Authorization":"Bearer " + this.$store.state.token
               
             }}).then(function(response){
-              me.close();
+             // me.close();
               me.Listar();
               me.limpiar();
               

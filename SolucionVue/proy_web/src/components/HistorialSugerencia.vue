@@ -10,7 +10,9 @@
         <v-spacer></v-spacer>
         <v-text-field class="text-xs-center" v-model="search" append-icon="search" label="Busqueda" single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
-        
+        <template>
+  
+</template>
        <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5">Estas seguro que deseas eliminarlo?</v-card-title>
@@ -25,6 +27,77 @@
        
         
       </v-toolbar>
+      <template>
+      <v-row>
+      <v-col
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <v-menu
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="dateInicio"
+            label="Fecha inicio"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="dateInicio"
+          @input="menu = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
+    <v-spacer></v-spacer>
+    <v-col
+      cols="12"
+      sm="6"
+      md="4"
+    >
+      <v-menu
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="dateFin"
+            label="Fecha Fin"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="dateFin"
+          @input="menu2 = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
+  </v-row>
+</template>
+
+<v-row>
+  <v-btn 
+          style="    right: -36px; top: -7px;"
+          color="teal lighten-3" dark class="mb-2"  @click="ListarFiltrado">
+            consultar
+          </v-btn>
+</v-row>
   
         <v-data-table
           :headers="headers"
@@ -56,10 +129,26 @@
           </v-btn>
         </template>
         </v-data-table>
+        <v-row style="margin:37px">
+        <v-toolbar-title>Total de sugerencias realizadas</v-toolbar-title>
+        <v-divider
+        class="mx-2"
+        inset  
+        vertical ></v-divider>
+     
+          <p style="color:green">{{totalSugerencias}}</p>
+
 
         
+      </v-row>
+      <v-row style="margin:37px"><v-btn 
+          style="    right: 10px; top: 10px;"
+          color="teal lighten-3" dark class="mb-2"  @click="conteoSugerencias">
+            TOTAL
+          </v-btn></v-row>
       </v-flex>
     </v-layout>
+    
   </template>
   
   <script>
@@ -67,14 +156,18 @@
   export default {
     data() {
       return {
-        
+        totalSugerencias:0,
+        dateInicio: null,
+        dateFin: null,
+        menu: false,
+        menu2: false,
         medicamentos: [],
         dialog: false,
         dialogDelete: false,
         dialogActivar:false,
         dialogDesactivar: false,
         headers: [
-        { text: "id", value: "idSugerencia"},
+        // { text: "id", value: "idSugerencia"},
           { text: "Nombre Medicamento", value: "medicamento.nombre"},
           { text: "Compuesto Quimico", value: "medicamento.compuestoQuimico"},
           { text: "Dosis", value: "medicamento.dosis" },
@@ -96,6 +189,7 @@
       formTitle() {
         return this.editedIndex === -1 ? 'Nuevo Medicamento' : 'Editar Medicamento';
       },
+     
     },
     watch: {
       dialog(val) {
@@ -108,8 +202,6 @@
     created() {
       this.initialize();
       this.Listar();
-      this.ListarSintomas();
-      
     },
     methods: {
       Listar() {
@@ -118,8 +210,34 @@
         let configuracion= {headers : header};
         axios.get("/api/SugerenciaMedicinas/Listar",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.medicamentos = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      ListarFiltrado() {
+        let me = this;
+        let header={"Authorization" : "Bearer " + this.$store.state.token};
+        let configuracion= {headers : header};
+        axios.get("/api/SugerenciaMedicinas/ListarSugerenciasFiltro/"+this.dateInicio+":"+this.dateFin,configuracion)
+          .then(function (response) {
+            //console.log(response);
+            me.medicamentos = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      conteoSugerencias() {
+        let me = this;
+        let header={"Authorization" : "Bearer " + this.$store.state.token};
+        let configuracion= {headers : header};
+        axios.get("/api/SugerenciaMedicinas/ContarSugerencias",configuracion)
+          .then(function (response) {
+            //console.log(response);
+             me.totalSugerencias = response.data;
           })
           .catch(function (error) {
             console.log(error);
@@ -127,6 +245,7 @@
       },
       initialize() {
       this.medicamentos = [];
+        
       
       },
       deleteItem(item) {
@@ -135,7 +254,7 @@
         this.idSugerencia = item.idSugerencia;
         this.dialogDelete = true;
       },
-  
+      
     
   
       deleteItemConfirm() {

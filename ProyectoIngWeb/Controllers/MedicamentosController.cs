@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
-    //[Authorize(Roles = "1")]
+    //[Authorize(Roles = "Administrador")]
     [Route("api/[controller]")]
     [ApiController]
     public class MedicamentosController : ControllerBase
@@ -65,6 +65,8 @@ namespace ProyectoIngWeb.Controllers
         //CORE 
         // GET: api/Medicamentos/ListarMedicamentoCore
         [HttpGet("[action]/{alergia}:{sintoma}")]
+
+        //
         public async Task<IEnumerable<MedicamentosViewModel>> ListarMedicamentoCore(int sintoma, [FromRoute] string alergia)
         {
             var medicamentos = await _context.Medicamento.ToListAsync();

@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
-    //[Authorize(Roles = "1")]
+    //[Authorize(Roles = "Administrador")]
     [Route("api/[controller]")]
     [ApiController]
     public class RelacionMedicamentoSintomasController : ControllerBase
@@ -54,7 +54,7 @@ namespace ProyectoIngWeb.Controllers
 
         public async Task<Boolean> ListarSintomaCore(int sintoma, int idMedicamento)
         {
-            var Medsintomas = await _context.MedicamentoSintoma.Include(ms => ms.sintoma).ToListAsync();
+            var Medsintomas = await _context.MedicamentoSintoma.ToListAsync();
 
             List<MedicamentoSintomaViewModel> ListaMedicamento = Medsintomas.Select(ms => new MedicamentoSintomaViewModel
             {

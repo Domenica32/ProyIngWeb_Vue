@@ -164,7 +164,7 @@
         let configuracion= {headers : header};
         axios.get("/api/Medicamentos/Listar",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.medicamentos = response.data;
             
             
@@ -184,7 +184,7 @@
         let configuracion= {headers : header};
         axios.get("/api/RelacionMedicamentoSintomas/Listar",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.relacion = response.data;
             
             
@@ -199,7 +199,7 @@
         let configuracion= {headers : header};
         axios.get("/api/Sintomas/Listar",configuracion)
           .then(function (response) {
-            console.log(response);
+           // console.log(response);
             me.sintomas = response.data;
           })
           .catch(function (error) {
@@ -208,7 +208,7 @@
       },
       CrearRelacion(){
         let me=this;
-          console.log(this);
+          //console.log(this);
           axios.post('/api/RelacionMedicamentoSintomas/Crear',{
             'idMedicamento_FK': me.select,
             'idSintoma_FK': me.select2,
@@ -266,7 +266,7 @@
       deleteItemConfirm() {
         //Codigo para editar
         let me=this;
-          console.log(this);
+          //console.log(this);
           axios.delete('/api/RelacionMedicamentoSintomas/Eliminar/'+me.idMedicamento_Sintoma)
           .then(function(response){
             me.close();

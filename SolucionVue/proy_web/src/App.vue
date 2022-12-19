@@ -119,7 +119,7 @@
         return this.$store.state.usuario;
       },
       esAdministrador(){
-        console.log('rol:',this.$store.state.usuario)
+        //console.log('rol:',this.$store.state.usuario)
         return this.$store.state.usuario && this.$store.state.usuario.idRol == 1 ;
       },
       esUsuarioNormal(){

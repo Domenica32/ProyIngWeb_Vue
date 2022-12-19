@@ -198,7 +198,7 @@
         let configuracion= {headers : header};
         axios.get("/api/Sintomas/Listar",configuracion)
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
             me.sintomas = response.data;
           })
           .catch(function (error) {
@@ -255,7 +255,7 @@
       deleteItemConfirm() {
         //Codigo para editar
         let me=this;
-          console.log(this);
+          //console.log(this);
           axios.delete('/api/Sintomas/Eliminar/'+me.idSintoma)
           .then(function(response){
             me.close();
@@ -327,7 +327,7 @@
         if (this.editedIndex > -1) {
           //Codigo para editar
           let me=this;
-          console.log(this);
+          //console.log(this);
           axios.put('/api/Sintomas/Actualizar',{
             'idSintoma':parseInt(me.idSintoma),
             'LugarSintoma': me.LugarSintoma,
@@ -344,7 +344,7 @@
         } else {
           //codigo para guardar 
           let me=this;
-          console.log(this);
+          //console.log(this);
           axios.post('/api/Sintomas/Crear',{
             'LugarSintoma': me.LugarSintoma,
             'TipoMalestar': me.TipoMalestar,

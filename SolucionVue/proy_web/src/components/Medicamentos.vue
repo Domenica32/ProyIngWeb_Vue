@@ -196,7 +196,7 @@
     created() {
       this.initialize();
       this.Listar();
-      this.ListarSintomas();
+      //this.ListarSintomas();
       
     },
     methods: {
@@ -252,7 +252,7 @@
       deleteItemConfirm() {
         //Codigo para editar
         let me=this;
-          console.log(this);
+          //console.log(this);
           axios.delete('/api/Medicamentos/Eliminar/'+me.idMedicamento)
           .then(function(response){
             me.close();
@@ -325,7 +325,7 @@
         if (this.editedIndex > -1) {
           //Codigo para editar
           let me=this;
-          console.log(this);
+          //console.log(this);
           axios.put('/api/Medicamentos/Actualizar',{
             'idMedicamento':parseInt(me.idMedicamento),
             'Nombre': me.Nombre,
@@ -343,7 +343,7 @@
         } else {
           //codigo para guardar 
           let me=this;
-          console.log(this);
+          //console.log(this);
           axios.post('/api/Medicamentos/Crear',{
             'Nombre': me.Nombre,
             'CompuestoQuimico': me.CompuestoQuimico,

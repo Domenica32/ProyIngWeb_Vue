@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProyectoIngWeb.Controllers
 {
-   // [Authorize(Roles ="Usuarios")]
+    [Authorize(Roles ="Usuarios")]
     [Route("api/[controller]")]
     [ApiController]
     public class SugerenciaMedicinasController : ControllerBase
@@ -61,6 +61,71 @@ namespace ProyectoIngWeb.Controllers
             }).Where(u => u.idUsuario_FK == userId);
         }
 
+        // GET: api/SugerenciaMedicinas/Listar
+        [HttpGet("[action]/{inicio}:{fin}")]
+        public async Task<IEnumerable<SugerenciaViewModel>> ListarSugerenciasFiltro( DateTime inicio, DateTime Fin )
+
+        {
+            var sugerencia = await _context.Sugerencia.Include(m => m.medicamento).Include(u => u.usuario).ToListAsync();
+            var userContext = HttpContext.User;
+
+            var userId = int.Parse(userContext.Claims.First(c => c.Type == "idUsuarios").Value);
+
+            //Console.Write(Medsintomas);
+            return sugerencia.Select(s => new SugerenciaViewModel
+            {
+                idSugerencia = s.idSugerencia,
+                idMedicamento_FK = s.idMedicamento_FK,
+                idUsuario_FK = s.idUsuario_FK,
+                fecha = s.fecha,
+                medicamento = new MedicamentosViewModel
+                {
+                    idMedicamento = s.medicamento.idMedicamento,
+                    nombre = s.medicamento.nombre,
+                    compuestoQuimico = s.medicamento.compuestoQuimico,
+                    dosis = s.medicamento.dosis
+                },
+                usuario = new UsuariosViewModel
+                {
+                    idUsuarios = s.usuario.idUsuarios,
+                    NombreUsuario = s.usuario.NombreUsuario
+                },
+
+
+
+
+            }).Where(u => u.idUsuario_FK == userId).Where(d=> d.fecha >= inicio && d.fecha<= Fin);
+        }
+
+        // GET: api/SugerenciaMedicinas/ContarSugerencias
+
+        [HttpGet("[action]")]
+        public async Task<int> ContarSugerencias()
+        {
+            var sug = await _context.Sugerencia.ToListAsync();
+            var userContext = HttpContext.User;
+            var userId = int.Parse(userContext.Claims.First(c => c.Type == "idUsuarios").Value);
+
+            int conteoSugerencias = 0;
+
+            List<SugerenciaViewModel> ListaSugerencias = sug.Select(s => new SugerenciaViewModel
+            {
+                idSugerencia = s.idSugerencia,
+                idUsuario_FK= s.idUsuario_FK
+
+
+            }).Where(s2=> s2.idUsuario_FK == userId).ToList();
+
+            foreach (SugerenciaViewModel suger in ListaSugerencias)
+            {
+                conteoSugerencias++;
+            }
+
+            return conteoSugerencias;
+        }
+
+
+
 
         // POST: api/SugerenciaMedicinas/Crear
         [HttpPost("[action]")]
@@ -80,7 +145,8 @@ namespace ProyectoIngWeb.Controllers
             SugerenciaMedicina sugerencia = new SugerenciaMedicina
             {
                 idMedicamento_FK = model.idMedicamento_FK,
-                idUsuario_FK = userId
+                idUsuario_FK = userId,
+                fecha = DateTime.Now
                 
 
             };

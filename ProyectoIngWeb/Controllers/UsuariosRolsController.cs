@@ -35,7 +35,8 @@ namespace ProyectoIngWeb.Controllers
         }
 
         //GET: api/UsuariosRols/Listar
-       [HttpGet("[action]")]
+        //[Authorize(Roles = "Administrador,Usuarios")]
+        [HttpGet("[action]")]
         public async Task<IEnumerable<UsuariosViewModel>> Listar()
         {
 

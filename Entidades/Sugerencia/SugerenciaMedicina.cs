@@ -23,6 +23,8 @@ namespace Entidades.Sugerencia
         [RegularExpression("(^[0-9]+$)", ErrorMessage = "Solo se permiten números")]
         public int idMedicamento_FK { get; set; }
 
+        public DateTime fecha { get; set; }
+
         [ForeignKey("idMedicamento_FK")]
 
         public virtual Medicamentos medicamento { get; set; }
